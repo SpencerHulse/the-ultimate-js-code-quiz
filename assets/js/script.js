@@ -1,4 +1,6 @@
 let questionCount = 0;
+let startingSeconds = 99;
+let countdownEl = document.getElementById("timer");
 
 let quizQuestions = [
   {
@@ -13,42 +15,30 @@ let quizQuestions = [
   },
 ];
 
-let mainE1 = document.querySelector("main");
+let mainEl = document.querySelector("main");
 
-let createQuestion = () => {
+//function that handles all button presses to progress the quiz forward
+let quizHandler = () => {
   //runs a check to ensure a button has been clicked
   if (buttonCheck() === false) {
     return;
   }
 
+  //begins the timer when the first question is clicked
+  if (questionCount === 0) {
+    let interval = setInterval(updateCountdown, 1000);
+  }
+
+  //placeholder to ensure there is another question in the quiz
   if (questionCount === quizQuestions.length) {
     alert("Quiz Done Placeholder!");
     return;
   }
 
-  while (mainE1.firstChild) {
-    mainE1.removeChild(mainE1.firstChild);
-  }
+  //creates the next question
+  createQuestion();
 
-  let questionContainerE1 = document.createElement("div");
-  questionContainerE1.className = "question-container";
-
-  let questionE1 = document.createElement("h2");
-  questionE1.textContent = quizQuestions[questionCount].question;
-  questionE1.className = "question";
-
-  questionContainerE1.appendChild(questionE1);
-
-  for (let i = 0; i < quizQuestions[questionCount].answers.length; i++) {
-    let answerE1 = document.createElement("button");
-    answerE1.className = "btn answer-btn";
-    answerE1.textContent =
-      i + 1 + ". " + quizQuestions[questionCount].answers[i];
-    questionContainerE1.appendChild(answerE1);
-  }
-
-  mainE1.appendChild(questionContainerE1);
-
+  //increases the question count
   questionCount++;
 };
 
@@ -63,53 +53,39 @@ let buttonCheck = () => {
   }
 };
 
-document.querySelector("main").addEventListener("click", createQuestion);
-/* let startQuiz = () => {
-  document.querySelector(".quiz-intro").style.display = "none";
-  createQuestion();
-  questionCount++;
-};
-
 let createQuestion = () => {
-  let questionContainerE1 = document.createElement("div");
-  questionContainerE1.className = "question-container";
+  //removes the previous main elements so that a new question can be made
+  while (mainEl.firstChild) {
+    mainEl.removeChild(mainEl.firstChild);
+  }
 
-  let questionE1 = document.createElement("h2");
-  questionE1.textContent = quizQuestions[questionCount].question;
-  questionE1.className = "question";
+  let questionContainerEl = document.createElement("div");
+  questionContainerEl.className = "question-container";
 
-  questionContainerE1.appendChild(questionE1);
+  let questionEl = document.createElement("h2");
+  questionEl.textContent = quizQuestions[questionCount].question;
+  questionEl.className = "question";
+
+  questionContainerEl.appendChild(questionEl);
 
   for (let i = 0; i < quizQuestions[questionCount].answers.length; i++) {
-    let answerE1 = document.createElement("button");
-    answerE1.className = "answer-btn";
-    answerE1.id = "answer" + i;
-    answerE1.textContent =
+    let answerEl = document.createElement("button");
+    answerEl.className = "btn answer-btn";
+    answerEl.textContent =
       i + 1 + ". " + quizQuestions[questionCount].answers[i];
-    questionContainerE1.appendChild(answerE1);
+    questionContainerEl.appendChild(answerEl);
   }
 
-  mainE1.appendChild(questionContainerE1);
+  mainEl.appendChild(questionContainerEl);
 };
 
-let nextQuestion = () => {
-  if (questionCount < quizQuestions.length) {
-    alert("It worked!");
+let updateCountdown = () => {
+  countdownEl.innerHTML = startingSeconds;
+  if (startingSeconds > 0) {
+    startingSeconds--;
   } else {
-    alert("Quiz Over!");
+    clearInterval(interval);
   }
-}; */
+};
 
-/* let answerE1= document.querySelector("#answer1")
-undefined
-console.log(answerE1)
-VM20400:1 <button class=​"answer-btn" id=​"answer1">​2. for​</button>​
-undefined
-console.log(answerE1.textContent)
-VM20537:1 2. for
-undefined
-answerE1.textContent = "2. " + "wow";
-'2. wow'
-console.log(answerE1.textContent)
-VM20795:1 2. wow
-undefined */
+document.querySelector("main").addEventListener("click", quizHandler);
