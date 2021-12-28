@@ -2,6 +2,7 @@ let questionCount = 0;
 let startingSeconds = 99;
 let score = 0;
 let correctAnswers = 0;
+let highScores = [];
 
 let countdownEl = document.getElementById("timer");
 let mainEl = document.querySelector("main");
@@ -48,8 +49,8 @@ let quizHandler = (event) => {
     startingSeconds = Math.floor(startingSeconds) + 1;
     //gets score at time of completion
     score = startingSeconds;
-    //placeholder for end of quiz
-    alert("Quiz Done Placeholder!");
+    //end of quiz
+    gameOver();
     return;
   }
 
@@ -120,4 +121,85 @@ let quizTimer = () => {
   }, 1000);
 };
 
+let gameOver = () => {
+  while (mainEl.firstChild) {
+    mainEl.removeChild(mainEl.firstChild);
+  }
+
+  let highScoreEl = document.createElement("h2");
+  highScoreEl.className = "high-score";
+  highScoreEl.textContent = "Your Final Score: " + score;
+  mainEl.appendChild(highScoreEl);
+
+  let saveScoreEl = document.createElement("p");
+  saveScoreEl.textContent = "Enter your initials below and save your score!";
+  mainEl.appendChild(saveScoreEl);
+
+  let scoreFormEl = document.createElement("form");
+  scoreFormEl.className = "submit-form";
+
+  let scoreInputEl = document.createElement("input");
+  scoreInputEl.setAttribute("type", "text");
+  scoreInputEl.setAttribute("name", "initials");
+  scoreInputEl.setAttribute("placeholder", "Enter Initials");
+  scoreFormEl.appendChild(scoreInputEl);
+
+  let scoreSubmitEl = document.createElement("button");
+  scoreSubmitEl.className = "btn";
+  scoreSubmitEl.id = "submit-score";
+  scoreSubmitEl.textContent = "Submit Score";
+  scoreFormEl.appendChild(scoreSubmitEl);
+
+  mainEl.appendChild(scoreFormEl);
+};
+
+let scoreFormHandler = (event) => {
+  event.preventDefault();
+  let scoreInitialsInput = document.querySelector(
+    "input[name='initials']"
+  ).value;
+
+  if (!scoreInitialsInput) {
+    alert("You need to put in your initials!");
+    return false;
+  }
+
+  let accuracy = (correctAnswers * 100) / quizQuestions.length;
+
+  let highScoreObj = {
+    initials: scoreInitialsInput,
+    score: score,
+    accuracy: accuracy,
+  };
+
+  highScores.push(highScoreObj);
+
+  highScoreScreen();
+};
+
+let highScoreScreen = () => {
+  while (mainEl.firstChild) {
+    mainEl.removeChild(mainEl.firstChild);
+  }
+
+  let highScoreTitleEl = document.createElement("h2");
+  highScoreTitleEl.className = "high-scores-title";
+  highScoreTitleEl.textContent = "High Scores";
+  mainEl.appendChild(highScoreTitleEl);
+
+  for (let i = 0; i < highScores.length; i++) {
+    let highScoreEl = document.createElement("p");
+    highScoreEl.className = "high-score";
+    highScoreEl.textContent =
+      highScores[i].initials +
+      " — " +
+      highScores[i].score +
+      " — " +
+      highScores[i].accuracy +
+      "% Accuracy";
+    mainEl.appendChild(highScoreEl);
+  }
+};
+
 document.querySelector("main").addEventListener("click", quizHandler);
+document.querySelector("main").addEventListener("submit", scoreFormHandler);
