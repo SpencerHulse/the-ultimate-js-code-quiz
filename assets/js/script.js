@@ -1,26 +1,30 @@
 let questionCount = 0;
 let startingSeconds = 99;
 let score = 0;
+let correctAnswers = 0;
 
 let countdownEl = document.getElementById("timer");
 let mainEl = document.querySelector("main");
+
+let correctAudio = new Audio("./assets/audio/correct.wav");
+let incorrectAudio = new Audio("./assets/audio/incorrect.wav");
 
 //array that holds objects containing questions, answers, and the correct answer
 let quizQuestions = [
   {
     question: "Which one is not a valid variable declaration in JavaScript?",
     answers: ["let", "for", "var", "const"],
-    correct: "for",
+    correct: "2. for",
   },
   {
     question: "Which of these is a falsy value?",
     answers: ["true", "null", "-42", "[ ]"],
-    correct: "null",
+    correct: "2. null",
   },
 ];
 
 //function that handles all button presses to progress the quiz forward
-let quizHandler = () => {
+let quizHandler = (event) => {
   //runs a check to ensure a button has been clicked
   if (buttonCheck() === false) {
     return;
@@ -31,14 +35,19 @@ let quizHandler = () => {
     quizTimer();
   }
 
+  //check answer
+  if (questionCount > 0) {
+    checkAnswer(event.target.textContent);
+  }
+
   //ensures there is another question in the quiz
   if (questionCount === quizQuestions.length) {
-    //gets score at time of completion
-    score = countdownEl.textContent;
     //one final increase to stop timer
     questionCount++;
     //ensures the seconds stops at the one it is clicked on
     startingSeconds = Math.floor(startingSeconds) + 1;
+    //gets score at time of completion
+    score = startingSeconds;
     //placeholder for end of quiz
     alert("Quiz Done Placeholder!");
     return;
@@ -86,6 +95,18 @@ let createQuestion = () => {
   }
 
   mainEl.appendChild(questionContainerEl);
+};
+
+let checkAnswer = (answer) => {
+  if (answer === quizQuestions[questionCount - 1].correct) {
+    console.log("correct!");
+    correctAnswers++;
+    correctAudio.play();
+  } else {
+    console.log("incorrect!");
+    startingSeconds -= 5;
+    incorrectAudio.play();
+  }
 };
 
 let quizTimer = () => {
