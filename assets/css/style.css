@@ -1,0 +1,56 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  height: 100vh;
+}
+
+/* header section css start */
+header {
+  display: flex;
+  justify-content: space-between;
+  padding: 45px 45px 0 45px;
+}
+/* header section css end */
+
+/* main section css start */
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 20vh auto 0 auto;
+}
+
+.quiz-intro {
+  text-align: center;
+}
+
+.quiz-title {
+  font-size: 42px;
+}
+
+.quiz-instructions {
+  font-size: 20px;
+  margin: 20px auto;
+  max-width: 600px;
+}
+
+.btn {
+  outline: none;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 10px;
+  background-color: lightseagreen;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.btn:hover {
+  opacity: 0.8;
+}
+/* main section css end */
