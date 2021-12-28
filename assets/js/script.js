@@ -1,7 +1,11 @@
 let questionCount = 0;
 let startingSeconds = 99;
-let countdownEl = document.getElementById("timer");
+let score = 0;
 
+let countdownEl = document.getElementById("timer");
+let mainEl = document.querySelector("main");
+
+//array that holds objects containing questions, answers, and the correct answer
 let quizQuestions = [
   {
     question: "Which one is not a valid variable declaration in JavaScript?",
@@ -15,8 +19,6 @@ let quizQuestions = [
   },
 ];
 
-let mainEl = document.querySelector("main");
-
 //function that handles all button presses to progress the quiz forward
 let quizHandler = () => {
   //runs a check to ensure a button has been clicked
@@ -26,11 +28,18 @@ let quizHandler = () => {
 
   //begins the timer when the first question is clicked
   if (questionCount === 0) {
-    let interval = setInterval(updateCountdown, 1000);
+    quizTimer();
   }
 
-  //placeholder to ensure there is another question in the quiz
+  //ensures there is another question in the quiz
   if (questionCount === quizQuestions.length) {
+    //gets score at time of completion
+    score = countdownEl.textContent;
+    //one final increase to stop timer
+    questionCount++;
+    //ensures the seconds stops at the one it is clicked on
+    startingSeconds = Math.floor(startingSeconds) + 1;
+    //placeholder for end of quiz
     alert("Quiz Done Placeholder!");
     return;
   }
@@ -79,13 +88,15 @@ let createQuestion = () => {
   mainEl.appendChild(questionContainerEl);
 };
 
-let updateCountdown = () => {
-  countdownEl.innerHTML = startingSeconds;
-  if (startingSeconds > 0) {
-    startingSeconds--;
-  } else {
-    clearInterval(interval);
-  }
+let quizTimer = () => {
+  let interval = setInterval(function () {
+    countdownEl.innerHTML = startingSeconds;
+    if (startingSeconds > 0 && questionCount <= quizQuestions.length) {
+      startingSeconds--;
+    } else {
+      clearInterval(interval);
+    }
+  }, 1000);
 };
 
 document.querySelector("main").addEventListener("click", quizHandler);
