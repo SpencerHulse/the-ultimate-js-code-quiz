@@ -22,6 +22,52 @@ let quizQuestions = [
     answers: ["true", "null", "-42", "[ ]"],
     correct: "2. null",
   },
+  {
+    question: "Which HTML element holds JavaScript?",
+    answers: ["link", "head", "meta", "script"],
+    correct: "4. script",
+  },
+  {
+    question: "Which one of these allows you to edit the content of an element",
+    answers: ["innerText", "textChange", "textContent", "changeTextContent"],
+    correct: "3. textContent",
+  },
+  {
+    question: "The external JavaScript file needs to contain a <script> tag.",
+    answers: ["true", "false"],
+    correct: "2. false",
+  },
+  {
+    question: "Which of these methods will not make a proper function?",
+    answers: [
+      "function test() {}",
+      "let test = function() {}",
+      "let test = () => {}",
+      "function = test() {}",
+    ],
+    correct: "4. function = test() {}",
+  },
+  {
+    question: "Which one of these does not test if two things are equal?",
+    answers: ["=", "==", "==="],
+    correct: "1. =",
+  },
+  {
+    question: "Which would you not see at the start of a for loop?",
+    answers: ["let i = 0", "i <= 10", "i++", "i.length"],
+    correct: "4. i.length",
+  },
+  {
+    question:
+      "You can access arrays with both dot notation and bracket notation.",
+    answers: ["true", "false"],
+    correct: "1. true",
+  },
+  {
+    question: "What do you use if you want a random number?",
+    answers: ["Math.floor", "Math.random", "Math.chance", "Math.between"],
+    correct: "2. Math.random",
+  },
 ];
 
 //function that handles all button presses to progress the quiz forward
@@ -110,11 +156,9 @@ let createQuestion = () => {
 
 let checkAnswer = (answer) => {
   if (answer === quizQuestions[questionCount - 1].correct) {
-    console.log("correct!");
     correctAnswers++;
     correctAudio.play();
   } else {
-    console.log("incorrect!");
     startingSeconds -= 5;
     incorrectAudio.play();
   }
@@ -186,6 +230,12 @@ let scoreFormHandler = (event) => {
 
   highScores.push(highScoreObj);
 
+  highScores.sort(function (x, y) {
+    return y.score - x.score;
+  });
+
+  highScores = highScores.slice(0, 5);
+
   saveTasks();
 
   highScoreScreen();
@@ -205,6 +255,8 @@ let highScoreScreen = () => {
     let highScoreEl = document.createElement("p");
     highScoreEl.className = "high-score";
     highScoreEl.textContent =
+      [i + 1] +
+      ". " +
       highScores[i].initials +
       " — " +
       highScores[i].score +
