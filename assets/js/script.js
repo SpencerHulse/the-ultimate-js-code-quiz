@@ -117,6 +117,7 @@ let quizTimer = () => {
       startingSeconds--;
     } else {
       clearInterval(interval);
+      gameOver();
     }
   }, 1000);
 };
@@ -174,6 +175,8 @@ let scoreFormHandler = (event) => {
 
   highScores.push(highScoreObj);
 
+  saveTasks();
+
   highScoreScreen();
 };
 
@@ -201,5 +204,25 @@ let highScoreScreen = () => {
   }
 };
 
+let saveTasks = () => {
+  localStorage.setItem("scores", JSON.stringify(highScores));
+};
+
+let loadTasks = () => {
+  let savedScores = localStorage.getItem("scores");
+
+  if (!savedScores) {
+    return false;
+  }
+
+  savedScores = JSON.parse(savedScores);
+
+  highScores = savedScores;
+};
+
 document.querySelector("main").addEventListener("click", quizHandler);
 document.querySelector("main").addEventListener("submit", scoreFormHandler);
+document
+  .querySelector("#view-scores")
+  .addEventListener("click", highScoreScreen);
+loadTasks();
