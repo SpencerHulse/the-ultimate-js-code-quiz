@@ -26,6 +26,16 @@ let quizQuestions = [
 
 //function that handles all button presses to progress the quiz forward
 let quizHandler = (event) => {
+  if (event.target.className === "btn main-menu") {
+    window.location.reload();
+  }
+
+  if (event.target.className === "btn reset-scores") {
+    highScores = [];
+    saveTasks();
+    highScoreScreen();
+  }
+
   //runs a check to ensure a button has been clicked
   if (buttonCheck() === false) {
     return;
@@ -202,6 +212,16 @@ let highScoreScreen = () => {
       "% Accuracy";
     mainEl.appendChild(highScoreEl);
   }
+
+  let playAgainEl = document.createElement("button");
+  playAgainEl.className = "btn main-menu";
+  playAgainEl.textContent = "Main Menu";
+  mainEl.appendChild(playAgainEl);
+
+  let resetScoresEl = document.createElement("button");
+  resetScoresEl.className = "btn reset-scores";
+  resetScoresEl.textContent = "Reset Scores";
+  mainEl.appendChild(resetScoresEl);
 };
 
 let saveTasks = () => {
