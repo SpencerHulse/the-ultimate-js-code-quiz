@@ -26,11 +26,11 @@ let quizQuestions = [
 
 //function that handles all button presses to progress the quiz forward
 let quizHandler = (event) => {
-  if (event.target.className === "btn main-menu") {
+  if (event.target.className === "btn high-score-btn main-menu") {
     window.location.reload();
   }
 
-  if (event.target.className === "btn reset-scores") {
+  if (event.target.className === "btn high-score-btn reset-scores") {
     highScores = [];
     saveTasks();
     highScoreScreen();
@@ -138,11 +138,12 @@ let gameOver = () => {
   }
 
   let highScoreEl = document.createElement("h2");
-  highScoreEl.className = "high-score";
+  highScoreEl.className = "score-form-title";
   highScoreEl.textContent = "Your Final Score: " + score;
   mainEl.appendChild(highScoreEl);
 
   let saveScoreEl = document.createElement("p");
+  saveScoreEl.className = "score-form-instructions";
   saveScoreEl.textContent = "Enter your initials below and save your score!";
   mainEl.appendChild(saveScoreEl);
 
@@ -156,7 +157,7 @@ let gameOver = () => {
   scoreFormEl.appendChild(scoreInputEl);
 
   let scoreSubmitEl = document.createElement("button");
-  scoreSubmitEl.className = "btn";
+  scoreSubmitEl.className = "btn score-submit-btn";
   scoreSubmitEl.id = "submit-score";
   scoreSubmitEl.textContent = "Submit Score";
   scoreFormEl.appendChild(scoreSubmitEl);
@@ -214,12 +215,12 @@ let highScoreScreen = () => {
   }
 
   let playAgainEl = document.createElement("button");
-  playAgainEl.className = "btn main-menu";
+  playAgainEl.className = "btn high-score-btn main-menu";
   playAgainEl.textContent = "Main Menu";
   mainEl.appendChild(playAgainEl);
 
   let resetScoresEl = document.createElement("button");
-  resetScoresEl.className = "btn reset-scores";
+  resetScoresEl.className = "btn high-score-btn reset-scores";
   resetScoresEl.textContent = "Reset Scores";
   mainEl.appendChild(resetScoresEl);
 };

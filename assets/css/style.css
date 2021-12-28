@@ -8,16 +8,25 @@ body {
   height: 100vh;
 }
 
-/* header section css start */
+/* header section start */
 header {
   display: flex;
   justify-content: space-between;
   padding: 45px 45px 0 45px;
   font-size: 22px;
 }
-/* header section css end */
 
-/* main section css start */
+.high-scores {
+  color: blue;
+}
+
+.high-scores:hover {
+  opacity: 0.7;
+  cursor: default;
+}
+/* header section end */
+
+/* main section start */
 main {
   display: flex;
   flex-direction: column;
@@ -54,9 +63,9 @@ main {
 .btn:hover {
   opacity: 0.8;
 }
-/* main section css end */
+/* main section end */
 
-/* questions css start */
+/* questions start */
 .question-container {
   text-align: center;
 }
@@ -78,4 +87,55 @@ main {
   font-size: 20px;
   font-weight: bold;
 }
-/* questions css end */
+/* questions end */
+
+/* score form start */
+.score-form-title {
+  font-size: 42px;
+}
+
+.score-form-instructions {
+  font-size: 20px;
+  margin: 20px auto;
+}
+
+.submit-form input {
+  height: 41px;
+  font-size: 20px;
+  margin-right: 5px;
+}
+
+.score-submit-btn {
+  outline: none;
+  border: none;
+  padding: 10px 20px;
+  background-color: lightseagreen;
+  color: white;
+  font-size: 18px;
+}
+/* score form end */
+
+/* high score screen start */
+.high-scores-title {
+  font-size: 42px;
+  text-decoration: underline;
+}
+
+.high-score {
+  font-size: 20px;
+  margin: 10px auto;
+}
+
+.high-score-btn {
+  outline: none;
+  border: none;
+  width: 200px;
+  margin: 10px;
+  padding: 15px 30px;
+  border-radius: 10px;
+  background-color: lightseagreen;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+}
+/* high score screen end */
