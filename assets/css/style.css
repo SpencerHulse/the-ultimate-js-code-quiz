@@ -4,16 +4,35 @@
   margin: 0;
 }
 
+:root {
+  --title-font-size: 42px;
+  --basic-font-size: 20px;
+  --primary-background-color: lightseagreen;
+}
+
 body {
   height: 100vh;
 }
+
+/* all button style start */
+.btn {
+  outline: none;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 10px;
+  background-color: var(--primary-background-color);
+  font-size: var(--basic-font-size);
+  color: white;
+  font-weight: bold;
+}
+/* all button style end */
 
 /* header section start */
 header {
   display: flex;
   justify-content: space-between;
   padding: 45px 45px 0 45px;
-  font-size: 22px;
+  font-size: 24px;
 }
 
 .high-scores {
@@ -40,24 +59,13 @@ main {
 }
 
 .quiz-title {
-  font-size: 42px;
+  font-size: var(--title-font-size);
 }
 
 .quiz-instructions {
-  font-size: 20px;
+  font-size: var(--basic-font-size);
   margin: 20px auto;
   max-width: 600px;
-}
-
-.start-btn {
-  outline: none;
-  border: none;
-  padding: 15px 30px;
-  border-radius: 10px;
-  background-color: lightseagreen;
-  color: white;
-  font-size: 20px;
-  font-weight: bold;
 }
 
 .btn:hover {
@@ -71,71 +79,53 @@ main {
 }
 
 .question {
-  font-size: 42px;
+  font-size: var(--title-font-size);
   margin-bottom: 60px;
 }
 
 .answer-btn {
-  outline: none;
-  border: none;
   width: 40%;
   margin: 20px;
-  padding: 15px 30px;
-  border-radius: 10px;
-  background-color: lightseagreen;
-  color: white;
-  font-size: 20px;
-  font-weight: bold;
 }
 /* questions end */
 
 /* score form start */
 .score-form-title {
-  font-size: 42px;
+  font-size: var(--title-font-size);
 }
 
 .score-form-instructions {
-  font-size: 20px;
+  font-size: var(--basic-font-size);
   margin: 20px auto;
 }
 
 .submit-form input {
   height: 41px;
-  font-size: 20px;
+  font-size: var(--basic-font-size);
   margin-right: 5px;
 }
 
 .score-submit-btn {
-  outline: none;
-  border: none;
+  border-radius: 0;
   padding: 10px 20px;
-  background-color: lightseagreen;
-  color: white;
   font-size: 18px;
+  font-weight: normal;
 }
 /* score form end */
 
 /* high score screen start */
 .high-scores-title {
-  font-size: 42px;
+  font-size: var(--title-font-size);
   text-decoration: underline;
 }
 
 .high-score {
-  font-size: 20px;
+  font-size: var(--basic-font-size);
   margin: 10px auto;
 }
 
 .high-score-btn {
-  outline: none;
-  border: none;
   width: 200px;
   margin: 10px;
-  padding: 15px 30px;
-  border-radius: 10px;
-  background-color: lightseagreen;
-  color: white;
-  font-size: 20px;
-  font-weight: bold;
 }
 /* high score screen end */
