@@ -80,6 +80,7 @@ let quizIntroEl = document.querySelector("#quiz-intro");
 let quizQuestionsSectionEl = document.querySelector("#quiz-questions");
 let questionEl = document.querySelector("#question");
 let answersContainerEl = document.querySelector("#answers-container");
+let accuracyContainerEl = document.querySelector("#answer-accuracy");
 //dealing with high scores screen
 let highScoreScreenEl = document.querySelector("#high-score-screen");
 let highScoreListEl = document.querySelector("#high-scores-list");
@@ -96,6 +97,9 @@ let startQuiz = () => {
   //hides the intro div and displays the question section
   quizIntroEl.style.display = "none";
   quizQuestionsSectionEl.style.display = "block";
+  //resets accuracy container
+  accuracyContainerEl.style.borderTop = "none";
+  accuracyContainerEl.textContent = "";
   //resets quiz stats
   questionCount = 0;
   score = 0;
@@ -167,12 +171,18 @@ let checkAnswer = (answer) => {
     //ensures audio can play again even if rapidly clicked
     correctAudio.currentTime = 0;
     correctAudio.play();
+    accuracyContainerEl.style.color = "green";
+    accuracyContainerEl.style.borderTop = "2px solid black";
+    accuracyContainerEl.textContent = "Correct!";
   }
   //lowers remaining time on wrong answer
   else {
     countdownTimer -= 5;
     incorrectAudio.currentTime = 0;
     incorrectAudio.play();
+    accuracyContainerEl.style.color = "red";
+    accuracyContainerEl.style.borderTop = "2px solid black";
+    accuracyContainerEl.textContent = "Incorrect!";
     //prevents negative numbers
     if (countdownTimer < 0) {
       countdownTimer = 0;

@@ -12,12 +12,15 @@
 
 body {
   height: 100vh;
+  text-align: center;
 }
 
 /* all button style start */
 .btn {
   outline: none;
   border: none;
+  max-width: 400px;
+  min-width: 270px;
   padding: 15px 30px;
   border-radius: 10px;
   background-color: var(--primary-background-color);
@@ -54,10 +57,6 @@ main {
   margin: 20vh auto 0 auto;
 }
 
-.quiz-intro {
-  text-align: center;
-}
-
 .quiz-title {
   font-size: var(--title-font-size);
 }
@@ -78,10 +77,6 @@ main {
   display: none;
 }
 
-.question-container {
-  text-align: center;
-}
-
 .question {
   font-size: var(--title-font-size);
   margin-bottom: 60px;
@@ -90,6 +85,14 @@ main {
 .answer-btn {
   width: 40%;
   margin: 20px;
+}
+
+#answer-accuracy {
+  font-size: 42px;
+  font-weight: bold;
+  padding-top: 20px;
+  margin: 20px auto 0 auto;
+  width: 300px;
 }
 /* questions end */
 
@@ -107,10 +110,16 @@ main {
   margin: 20px auto;
 }
 
+.submit-form {
+  display: flex;
+  flex-direction: column;
+}
+
 .submit-form input {
   height: 41px;
   font-size: var(--basic-font-size);
-  margin-right: 5px;
+  min-width: 270px;
+  margin-bottom: 5px;
 }
 
 .score-submit-btn {
@@ -129,13 +138,17 @@ main {
 .high-scores-title {
   font-size: 62px;
   text-decoration: underline;
-  text-align: center;
 }
 
 .high-score {
   font-size: 24px;
   margin: 10px auto;
-  text-align: center;
+}
+
+#score-buttons-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .high-score-btn {
