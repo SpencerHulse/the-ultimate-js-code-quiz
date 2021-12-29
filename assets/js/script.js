@@ -200,7 +200,7 @@ let quizTimer = () => {
       return;
     }
     //displays the changing time on the page
-    countdownEl.innerHTML = countdownTimer;
+    countdownEl.innerHTML = "Time:<br />" + countdownTimer;
     //the countdown timer keeps going while there is time and questions left
     if (countdownTimer > 0 && questionCount <= quizQuestions.length) {
       countdownTimer--;
@@ -275,7 +275,7 @@ let highScoreScreen = () => {
   highScoreScreenEl.style.display = "block";
   //resets timer
   countdownTimer = startingSeconds;
-  countdownEl.innerHTML = 100;
+  countdownEl.innerHTML = "Time:<br />" + "100";
 };
 
 //navigates from high score screen to the quiz intro
