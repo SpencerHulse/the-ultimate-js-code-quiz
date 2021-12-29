@@ -109,32 +109,34 @@ let startQuiz = () => {
 //handles answer buttons presses to progress the quiz forward
 let quizHandler = (event) => {
   //ensures a created button is clicked before proceeding
-  if (event.target.className !== "btn answer-btn") {
-    return false;
-  }
+  if (
+    event.target.className === "btn answer-btn" ||
+    /* workaround for a bug where the first answer needed to be clicked twice */
+    event.target.id === "start-button"
+  ) {
+    //check whether the answer is correct
+    if (questionCount > 0) {
+      checkAnswer(event.target.textContent);
+    }
 
-  //check whether the answer is correct
-  if (questionCount > 0) {
-    checkAnswer(event.target.textContent);
-  }
+    //ensures there is another question in the quiz
+    if (questionCount === quizQuestions.length) {
+      //one final increase to stop timer
+      questionCount++;
+      //ensures the seconds stops at the one it is clicked on
+      countdownTimer = Math.floor(countdownTimer) + 1;
+      //gets score at time of completion
+      score = countdownTimer;
+      //end of quiz
+      gameOver();
+      return;
+    }
 
-  //ensures there is another question in the quiz
-  if (questionCount === quizQuestions.length) {
-    //one final increase to stop timer
+    //creates the next question
+    createQuestion();
+    //increases the question count
     questionCount++;
-    //ensures the seconds stops at the one it is clicked on
-    countdownTimer = Math.floor(countdownTimer) + 1;
-    //gets score at time of completion
-    score = countdownTimer;
-    //end of quiz
-    gameOver();
-    return;
   }
-
-  //creates the next question
-  createQuestion();
-  //increases the question count
-  questionCount++;
 };
 
 //creates each question
@@ -332,9 +334,7 @@ document
   .querySelector("#reset-scores-button")
   .addEventListener("click", resetScores);
 //runs quizHandler when a quiz answer button is clicked
-document
-  .querySelector("#quiz-questions")
-  .addEventListener("click", quizHandler);
+document.querySelector("main").addEventListener("click", quizHandler);
 //runs scoreFormHandler when a score is submitted
 document
   .querySelector("#score-submit")
