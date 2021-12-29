@@ -157,6 +157,7 @@ let createQuestion = () => {
   for (let i = 0; i < quizQuestions[questionCount].answers.length; i++) {
     let answerEl = document.createElement("button");
     answerEl.className = "btn answer-btn";
+    answerEl.setAttribute("data-key", 49 + i);
     answerEl.textContent =
       i + 1 + ". " + quizQuestions[questionCount].answers[i];
     answersContainerEl.appendChild(answerEl);
@@ -200,7 +201,7 @@ let quizTimer = () => {
       return;
     }
     //displays the changing time on the page
-    countdownEl.innerHTML = "Time:<br />" + countdownTimer;
+    countdownEl.innerHTML = "Time<br />" + countdownTimer;
     //the countdown timer keeps going while there is time and questions left
     if (countdownTimer > 0 && questionCount <= quizQuestions.length) {
       countdownTimer--;
@@ -275,7 +276,7 @@ let highScoreScreen = () => {
   highScoreScreenEl.style.display = "block";
   //resets timer
   countdownTimer = startingSeconds;
-  countdownEl.innerHTML = "Time:<br />" + "100";
+  countdownEl.innerHTML = "Time<br />" + "100";
 };
 
 //navigates from high score screen to the quiz intro
@@ -338,6 +339,39 @@ let createHighScoreList = () => {
   }
 };
 
+//allows questions to be answered with keys 1 to 4
+let keyHandler = (event) => {
+  //selects the button with the same keyCode as the pressed key
+  let key = document.querySelector(`.answer-btn[data-key="${event.keyCode}"]`);
+  //runs the same logic as keyHandler with the new event variable
+  if (!key) {
+    return;
+  } else {
+    //check whether the answer is correct
+    if (questionCount > 0) {
+      checkAnswer(key.textContent);
+    }
+
+    //ensures there is another question in the quiz
+    if (questionCount === quizQuestions.length) {
+      //one final increase to stop timer
+      questionCount++;
+      //ensures the seconds stops at the one it is clicked on
+      countdownTimer = Math.floor(countdownTimer) + 1;
+      //gets score at time of completion
+      score = countdownTimer;
+      //end of quiz
+      gameOver();
+      return;
+    }
+
+    //creates the next question
+    createQuestion();
+    //increases the question count
+    questionCount++;
+  }
+};
+
 //runs startQuiz when the start button is clicked
 document.querySelector("#start-button").addEventListener("click", startQuiz);
 //runs mainMenu when the main menu button is clicked
@@ -358,3 +392,5 @@ document
   .addEventListener("click", highScoreScreen);
 //loads the scores in local storage upon page load
 loadScores();
+//captures keydown and sends to keyHandler
+window.addEventListener("keydown", keyHandler);

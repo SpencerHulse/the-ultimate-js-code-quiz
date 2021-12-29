@@ -9,8 +9,8 @@
   </head>
   <body>
     <header>
-      <p class="high-scores" id="view-scores">View High Scores</p>
-      <p id="timer">Time:<br />100</p>
+      <a href="#" class="high-scores" id="view-scores">View High Scores</a>
+      <p id="timer">Time<br />100</p>
     </header>
     <main>
       <section class="quiz-intro" id="quiz-intro">
@@ -21,7 +21,9 @@
           time crunch. The faster you go, the higher your score. Just make sure
           not to miss any since it will cost you five seconds per miss!
         </p>
-        <button class="btn start-btn" id="start-button">Start Quiz!</button>
+        <button class="btn start-btn" id="start-button" tabindex="1">
+          Start Quiz!
+        </button>
       </section>
 
       <section id="quiz-questions">
