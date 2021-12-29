@@ -164,11 +164,14 @@ let checkAnswer = (answer) => {
   //plays an appropriate sound and gives a penalty if wrong
   if (answer === quizQuestions[questionCount - 1].correct) {
     correctAnswers++;
+    //ensures audio can play again even if rapidly clicked
+    correctAudio.currentTime = 0;
     correctAudio.play();
   }
   //lowers remaining time on wrong answer
   else {
     countdownTimer -= 5;
+    incorrectAudio.currentTime = 0;
     incorrectAudio.play();
     //prevents negative numbers
     if (countdownTimer < 0) {
