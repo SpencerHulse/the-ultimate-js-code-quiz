@@ -74,6 +74,10 @@ main {
 /* main section end */
 
 /* questions start */
+#quiz-questions {
+  display: none;
+}
+
 .question-container {
   text-align: center;
 }
@@ -90,6 +94,10 @@ main {
 /* questions end */
 
 /* score form start */
+#score-submit {
+  display: none;
+}
+
 .score-form-title {
   font-size: var(--title-font-size);
 }
@@ -114,14 +122,20 @@ main {
 /* score form end */
 
 /* high score screen start */
+#high-score-screen {
+  display: none;
+}
+
 .high-scores-title {
-  font-size: var(--title-font-size);
+  font-size: 62px;
   text-decoration: underline;
+  text-align: center;
 }
 
 .high-score {
-  font-size: var(--basic-font-size);
+  font-size: 24px;
   margin: 10px auto;
+  text-align: center;
 }
 
 .high-score-btn {
