@@ -179,17 +179,16 @@ let checkAnswer = (answer) => {
 let quizTimer = () => {
   //has the timer go down each second
   let interval = setInterval(function () {
+    //stops the timer when view high scores is clicked
+    if (highScoreScreenEl.style.display === "block") {
+      clearInterval(interval);
+      return;
+    }
     //displays the changing time on the page
     countdownEl.innerHTML = countdownTimer;
     //the countdown timer keeps going while there is time and questions left
     if (countdownTimer > 0 && questionCount <= quizQuestions.length) {
       countdownTimer--;
-      //stops and resets the timer when view high scores is clicked
-      if (highScoreScreenEl.style.display === "block") {
-        clearInterval(interval);
-        countdownTimer = startingSeconds;
-        countdownEl.innerHTML = 100;
-      }
     }
     //ends the game when the time runs out or all questions are answered
     else {
@@ -259,6 +258,9 @@ let highScoreScreen = () => {
   quizQuestionsSectionEl.style.display = "none";
   scoreSubmitEl.style.display = "none";
   highScoreScreenEl.style.display = "block";
+  //resets timer
+  countdownTimer = startingSeconds;
+  countdownEl.innerHTML = 100;
 };
 
 //navigates from high score screen to the quiz intro
